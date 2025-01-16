@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestion des Produits</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Gestion des Produits</h1>
+    <div id="products"></div>
+    <script>
+        async function loadProducts() {
+            const response = await axios.get('/api/products');
+            const productsDiv = document.getElementById('products');
+
+            productsDiv.innerHTML = response.data
+                .map(product => `
+                    <div>
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p>Prix : ${product.price}€</p>
+                    </div>
+                `).join('');
+        }
+        loadProducts();
+    </script>
+</body>
+</html>
